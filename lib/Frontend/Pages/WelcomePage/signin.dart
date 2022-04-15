@@ -1,23 +1,31 @@
+import 'package:crowdsource/backend/Providers/provider_tag.dart';
 import 'package:flutter/material.dart';
 import 'package:crowdsource/Utilities/constants.dart';
 import 'package:crowdsource/Frontend/widgets/widget_action_button.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatelessWidget {
+  final VoidCallback onTap;
   const SignInPage({
     Key? key,
-    required this.pageController,
+    required this.onTap,
   }) : super(key: key);
-
-  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
+    final tagProvider = Provider.of<TagProvider>(context);
     return Column(
       children: [
         Expanded(
           flex: 4,
           child: Container(
             color: kPrimaryDark,
+            child: Center(
+              child: Text(
+                tagProvider.isInfluencer.toString(),
+                style: kStylePrimaryBold,
+              ),
+            ),
           ),
         ),
         Expanded(
@@ -27,10 +35,11 @@ class SignInPage extends StatelessWidget {
             child: Padding(
               padding: kSingleHorizontal,
               child: ActionButton(
-                  leadingIcon: true,
-                  svg: "assets/icons/icon_back.svg",
-                  title: "Back",
-                  onTap: () => pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut)),
+                leadingIcon: true,
+                svg: "assets/icons/icon_back.svg",
+                title: "Back",
+                onTap: onTap,
+              ),
             ),
           ),
         ),

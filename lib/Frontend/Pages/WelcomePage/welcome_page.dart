@@ -12,7 +12,7 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  PageController pageController = PageController(initialPage: 0);
+  PageController pageController = PageController(initialPage: 1);
   @override
   void dispose() {
     pageController.dispose();
@@ -26,10 +26,10 @@ class _WelcomePageState extends State<WelcomePage> {
       appBar: const WidgetAppBar(),
       body: PageView(
         controller: pageController,
-        physics: const NeverScrollableScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
         children: [
-          ChooseTag(pageController: pageController),
-          SignInPage(pageController: pageController),
+          ChooseProfilePage(onTap: () => pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut)),
+          SignInPage(onTap: () => pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut)),
         ],
       ),
     );

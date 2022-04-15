@@ -24,11 +24,11 @@ const Color kContestIndicator = Color(0xffef9226);
 TextStyle kStylePrimaryBold = TextStyle(
   color: kPrimaryText,
   fontSize: getWidth(22),
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w800,
 );
 TextStyle kStyleSecondaryBold = TextStyle(
   color: kPrimaryText,
-  fontSize: getHeight(24),
+  fontSize: getHeight(22),
   fontWeight: FontWeight.w900,
 );
 
