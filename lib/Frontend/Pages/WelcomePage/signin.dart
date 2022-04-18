@@ -1,5 +1,5 @@
-import 'package:crowdsource/Frontend/Pages/HomePages/InfluencerHomePage/homepage.dart';
-import 'package:crowdsource/Frontend/Pages/HomePages/ParticipantHomePage/homepage.dart';
+import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/influencer_homepage.dart';
+import 'package:crowdsource/Frontend/Pages/HomePages/Participant/participant_home.dart';
 import 'package:crowdsource/Utilities/size_config.dart';
 import 'package:crowdsource/backend/Providers/provider_tag.dart';
 import 'package:flutter/material.dart';
