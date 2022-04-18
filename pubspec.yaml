@@ -37,6 +37,13 @@ dependencies:
   flutter_svg: ^1.0.3
   share_plus: ^4.0.4
   provider: ^6.0.2
+  intl: ^0.17.0
+  # #Use for backend firebase databse & login
+  # firebase_core: ^1.13.1
+  # firebase_database: ^9.0.8
+  # cloud_firestore: ^3.1.10
+  # firebase_auth: ^3.3.9
+  # google_sign_in: ^5.2.4
 
 dev_dependencies:
   flutter_test:

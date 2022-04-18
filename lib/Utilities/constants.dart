@@ -47,8 +47,8 @@ TextStyle kStyleSecondaryPara = TextStyle(
 // Button Text Style
 TextStyle kStylePrimaryButton = TextStyle(
   color: kPrimaryDark,
-  fontSize: getHeight(18),
-  fontWeight: FontWeight.w900,
+  fontSize: getHeight(16),
+  fontWeight: FontWeight.w800,
 );
 TextStyle kStylePrimaryButtonLight = TextStyle(
   color: kSecondaryText,
