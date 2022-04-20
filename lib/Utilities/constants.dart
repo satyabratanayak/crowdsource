@@ -36,6 +36,11 @@ TextStyle kStylePrimaryHeading = TextStyle(
   fontSize: getWidth(15),
   fontWeight: FontWeight.w800,
 );
+TextStyle kStyleSecondaryHeading = TextStyle(
+  color: kPrimaryText,
+  fontSize: getWidth(13),
+  fontWeight: FontWeight.w800,
+);
 
 // Pararaph Text Style
 TextStyle kStylePrimaryPara = TextStyle(
@@ -45,6 +50,11 @@ TextStyle kStylePrimaryPara = TextStyle(
 );
 TextStyle kStyleSecondaryPara = TextStyle(
   color: kSecondaryText,
+  fontSize: getHeight(10),
+  fontWeight: FontWeight.w900,
+);
+TextStyle kCalenderText = TextStyle(
+  color: kPrimaryDark,
   fontSize: getHeight(10),
   fontWeight: FontWeight.w900,
 );
