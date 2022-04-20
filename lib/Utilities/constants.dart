@@ -31,16 +31,21 @@ TextStyle kStyleSecondaryBold = TextStyle(
   fontSize: getHeight(22),
   fontWeight: FontWeight.w900,
 );
+TextStyle kStylePrimaryHeading = TextStyle(
+  color: kPrimaryText,
+  fontSize: getWidth(15),
+  fontWeight: FontWeight.w800,
+);
 
 // Pararaph Text Style
 TextStyle kStylePrimaryPara = TextStyle(
   color: kSecondaryText,
-  fontSize: getHeight(14),
+  fontSize: getHeight(12),
   fontWeight: FontWeight.w900,
 );
 TextStyle kStyleSecondaryPara = TextStyle(
   color: kSecondaryText,
-  fontSize: getHeight(12),
+  fontSize: getHeight(10),
   fontWeight: FontWeight.w900,
 );
 
@@ -52,7 +57,7 @@ TextStyle kStylePrimaryButton = TextStyle(
 );
 TextStyle kStylePrimaryButtonLight = TextStyle(
   color: kSecondaryText,
-  fontSize: getHeight(18),
+  fontSize: getHeight(16),
   fontWeight: FontWeight.w900,
 );
 TextStyle kStyleSecondaryButton = TextStyle(
@@ -86,7 +91,8 @@ EdgeInsetsGeometry kDoublePad = EdgeInsets.all(getWidth(40));
 // EdgeInsets.Symmetric - Horizontal Padding Constants on this Project
 EdgeInsetsGeometry kQuatHorizontal = EdgeInsets.symmetric(horizontal: getWidth(5));
 EdgeInsetsGeometry kHalfHorizontal = EdgeInsets.symmetric(horizontal: getWidth(10));
-EdgeInsetsGeometry kSingleHorizontal = EdgeInsets.symmetric(horizontal: getWidth(20));
+EdgeInsetsGeometry kFullHorizontal = EdgeInsets.symmetric(horizontal: getWidth(20));
+EdgeInsetsGeometry kSingleHorizontal = EdgeInsets.symmetric(horizontal: getWidth(30));
 EdgeInsetsGeometry kDoubleHorizontal = EdgeInsets.symmetric(horizontal: getWidth(40));
 
 // EdgeInsets.Symmetric - Vertical Padding Constants on this Project

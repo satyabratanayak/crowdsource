@@ -67,7 +67,7 @@ class _OptionCardState extends State<OptionCard> {
                     ),
                     Text(
                       widget.description,
-                      style: kStyleSecondaryPara,
+                      style: kStylePrimaryPara,
                     )
                   ],
                 ),

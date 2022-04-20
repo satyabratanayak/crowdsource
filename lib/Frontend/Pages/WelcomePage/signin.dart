@@ -1,5 +1,6 @@
 import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/influencer_homepage.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Participant/participant_home.dart';
+import 'package:crowdsource/Frontend/widgets/showsnack.dart';
 import 'package:crowdsource/Utilities/size_config.dart';
 import 'package:crowdsource/backend/Providers/provider_tag.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class SignInPage extends StatelessWidget {
                         child: Text(
                           "Choose the best social login for joining google crowsource ?",
                           textAlign: TextAlign.center,
-                          style: kStyleSecondaryPara,
+                          style: kStylePrimaryPara,
                         ),
                       ),
                     ]),
@@ -63,19 +64,19 @@ class SignInPage extends StatelessWidget {
                         children: [
                           SocialButtons(
                             onTap: () {
-                              showButtonsnack(context);
+                              showButtonsnack(context, "We are working on it, please try sign in with google");
                             },
                             svgPath: "assets/icons/icon_apple.svg",
                           ),
                           SocialButtons(
                             onTap: () {
-                              showButtonsnack(context);
+                              showButtonsnack(context, "We are working on it, please try sign in with google");
                             },
                             svgPath: "assets/icons/icon_github.svg",
                           ),
                           SocialButtons(
                             onTap: () {
-                              showButtonsnack(context);
+                              showButtonsnack(context, "We are working on it, please try sign in with google");
                             },
                             svgPath: "assets/icons/icon_twitter.svg",
                           ),
@@ -213,11 +214,4 @@ class SocialButtons extends StatelessWidget {
       ),
     );
   }
-}
-
-showButtonsnack(BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-    content: Text("We are working on it, please try sign in with google"),
-    duration: Duration(milliseconds: 500),
-  ));
 }

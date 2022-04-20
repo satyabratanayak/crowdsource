@@ -45,7 +45,7 @@ class _ChooseProfilePageState extends State<ChooseProfilePage> {
                         child: Text(
                           "Join the app by selecting one of the tags. Are you an influencer or a participant ?",
                           textAlign: TextAlign.center,
-                          style: kStyleSecondaryPara,
+                          style: kStylePrimaryPara,
                         ),
                       ),
                     ]),

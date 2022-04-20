@@ -1,3 +1,7 @@
+import 'package:crowdsource/Frontend/Pages/HomePages/Participant/ContestPage/participant_contest_screen.dart';
+import 'package:crowdsource/Frontend/Pages/HomePages/Participant/EventPage/participant_event_screen.dart';
+import 'package:crowdsource/Frontend/Pages/HomePages/Participant/HomePage/participant_home_screen.dart';
+import 'package:crowdsource/Frontend/Pages/HomePages/Participant/ProfilePage/participant_profile_screen.dart';
 import 'package:crowdsource/Frontend/widgets/BottomBar/bottom_bar.dart';
 import 'package:crowdsource/Frontend/widgets/widget_appbar.dart';
 import 'package:crowdsource/Utilities/constants.dart';
@@ -29,10 +33,10 @@ class _ParticipantHomePageState extends State<ParticipantHomePage> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: const [
-          Center(child: Text("Home")),
-          Center(child: Text("Event")),
-          Center(child: Text("Contest")),
-          Center(child: Text("Profile")),
+          ParticipantHomeScreen(),
+          ParticipantEventScreen(),
+          ParticipantContestScreen(),
+          ParticipantProfileScreen(),
         ],
       ),
       bottomNavigationBar: NavigateBar(
