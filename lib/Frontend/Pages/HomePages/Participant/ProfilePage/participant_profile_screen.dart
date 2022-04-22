@@ -1,3 +1,5 @@
+import 'package:crowdsource/Frontend/Pages/WelcomePage/welcome_page.dart';
+import 'package:crowdsource/Frontend/widgets/event_waning_sheet.dart';
 import 'package:crowdsource/Frontend/widgets/showsnack.dart';
 import 'package:crowdsource/Frontend/widgets/title_card.dart';
 import 'package:crowdsource/Utilities/constants.dart';
@@ -30,7 +32,26 @@ class ParticipantProfileScreen extends StatelessWidget {
               },
               title: "FeedBack"),
           const TitleHeading(title: "Settings"),
-          SettingsButton(onTap: () {}, title: "Log Out")
+          SettingsButton(
+              onTap: () {
+                showModalBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) => EventWarningSheet(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WelcomePage(),
+                        ),
+                      );
+                    },
+                    title: "Log Out",
+                  ),
+                );
+              },
+              title: "Log Out")
         ],
       ),
     );
@@ -99,6 +120,10 @@ class ProfileCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: kPrimaryDark,
                   borderRadius: kHalfCurve,
+                  image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/images/profile.png"),
+                  ),
                 ),
               ),
             ),

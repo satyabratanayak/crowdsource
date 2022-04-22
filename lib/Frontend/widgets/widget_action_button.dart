@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ActionButton extends StatelessWidget {
+  final bool hasSvg;
   final String title;
   final VoidCallback onTap;
   final double? height;
   final double? width;
   final Color? color;
+  final Color? textColor;
   final String? svg;
   final bool leadingIcon;
 
@@ -21,6 +23,8 @@ class ActionButton extends StatelessWidget {
     this.color,
     this.svg,
     this.leadingIcon = false,
+    this.textColor,
+    this.hasSvg = true,
   }) : super(key: key);
 
   @override
@@ -39,13 +43,17 @@ class ActionButton extends StatelessWidget {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(svg ?? "assets/icons/icon_next.svg"),
+                  hasSvg ? SvgPicture.asset(svg ?? "assets/icons/icon_next.svg") : Container(),
                   SizedBox(
                     width: getWidth(10),
                   ),
                   Text(
                     title,
-                    style: kStylePrimaryButtonLight,
+                    style: TextStyle(
+                      color: textColor ?? kSecondaryText,
+                      fontSize: getHeight(14),
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ],
               )
@@ -54,12 +62,23 @@ class ActionButton extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: kStylePrimaryButtonLight,
+                    style: TextStyle(
+                      color: textColor ?? kSecondaryText,
+                      fontSize: getHeight(14),
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
-                  SizedBox(
-                    width: getWidth(10),
-                  ),
-                  SvgPicture.asset(svg ?? "assets/icons/icon_next.svg"),
+                  hasSvg
+                      ? SizedBox(
+                          width: getWidth(10),
+                        )
+                      : Container(),
+                  hasSvg
+                      ? SvgPicture.asset(
+                          svg ?? "assets/icons/icon_next.svg",
+                          color: textColor,
+                        )
+                      : Container(),
                 ],
               ),
       ),
