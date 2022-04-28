@@ -58,6 +58,11 @@ TextStyle kStyleParagraph = TextStyle(
   fontSize: getHeight(12),
   fontWeight: FontWeight.w500,
 );
+TextStyle kStyleParagraphSmall = TextStyle(
+  color: kSecondaryText,
+  fontSize: getHeight(10),
+  fontWeight: FontWeight.w500,
+);
 TextStyle kCalenderText = TextStyle(
   color: kPrimaryDark,
   fontSize: getHeight(10),

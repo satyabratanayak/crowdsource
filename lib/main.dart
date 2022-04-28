@@ -1,4 +1,5 @@
 import 'package:crowdsource/Utilities/size_config.dart';
+import 'package:crowdsource/backend/Providers/provider_event.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Frontend/Pages/WelcomePage/welcome_page.dart';
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => TagProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EventProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Crowdsource App',
