@@ -1,6 +1,6 @@
 import 'package:crowdsource/Frontend/Pages/WelcomePage/choosetag.dart';
 import 'package:crowdsource/Frontend/Pages/WelcomePage/signin.dart';
-import 'package:crowdsource/Frontend/widgets/widget_appbar.dart';
+import 'package:crowdsource/Frontend/Global/Widgets/widgets_global.dart';
 import 'package:crowdsource/Utilities/constants.dart';
 import 'package:flutter/material.dart';
 

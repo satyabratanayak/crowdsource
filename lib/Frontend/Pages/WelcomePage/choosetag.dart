@@ -1,9 +1,5 @@
-import 'package:crowdsource/Frontend/widgets/optioncard.dart';
-import 'package:crowdsource/Frontend/widgets/widget_action_button.dart';
-import 'package:crowdsource/Utilities/size_config.dart';
+import 'package:crowdsource/Utilities/import.dart';
 import 'package:crowdsource/backend/Providers/provider_tag.dart';
-import 'package:flutter/material.dart';
-import 'package:crowdsource/Utilities/constants.dart';
 import 'package:provider/provider.dart';
 
 class ChooseProfilePage extends StatefulWidget {

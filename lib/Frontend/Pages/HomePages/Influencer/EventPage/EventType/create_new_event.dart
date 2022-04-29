@@ -1,12 +1,5 @@
+import 'package:crowdsource/Utilities/import.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/EventPage/EventType/choose_event_type.dart';
-import 'package:crowdsource/Frontend/widgets/event_waning_sheet.dart';
-import 'package:crowdsource/Frontend/widgets/text_field_form.dart';
-import 'package:crowdsource/Frontend/widgets/title_card.dart';
-import 'package:crowdsource/Frontend/widgets/widget_action_button.dart';
-import 'package:crowdsource/Frontend/widgets/widget_appbar.dart';
-import 'package:crowdsource/Utilities/constants.dart';
-import 'package:crowdsource/Utilities/size_config.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
@@ -256,11 +249,21 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   svg: "assets/icons/icon_next.svg",
                   title: "Done",
                   onTap: () {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
                     showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (_) => EventWarningSheet(onTap: () {}, title: "Submit"));
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (_) => WarningSheet(
+                        onTapPrimary: () {},
+                        primaryButtonText: "Register Event",
+                        warningNote:
+                            "If you OPEN The link it will be marked as you registered this event/contest so, if you don't want to register this event/contest then just slide down the white sheet.",
+                      ),
+                    );
                   },
                 ),
               ],

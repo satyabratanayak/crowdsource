@@ -1,9 +1,5 @@
+import 'package:crowdsource/Utilities/import.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Participant/EventPage/participant_event_detail_screen.dart';
-import 'package:crowdsource/Frontend/widgets/post_card.dart';
-import 'package:crowdsource/Frontend/widgets/title_card.dart';
-import 'package:crowdsource/Utilities/constants.dart';
-import 'package:crowdsource/Utilities/size_config.dart';
-import 'package:flutter/material.dart';
 
 class ParticipantEventScreen extends StatelessWidget {
   const ParticipantEventScreen({Key? key}) : super(key: key);

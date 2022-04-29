@@ -1,4 +1,4 @@
-import 'package:crowdsource/Frontend/widgets/BottomBar/BottomBarSelector/build_moving_selector.dart';
+import 'package:crowdsource/Frontend/Global/Widgets/BottomBar/BottomBarSelector/build_moving_selector.dart';
 import 'package:crowdsource/Utilities/size_config.dart';
 import 'package:flutter/material.dart';
 

@@ -1,10 +1,5 @@
+import 'package:crowdsource/Utilities/import.dart';
 import 'package:crowdsource/Frontend/Pages/WelcomePage/welcome_page.dart';
-import 'package:crowdsource/Frontend/widgets/event_waning_sheet.dart';
-import 'package:crowdsource/Frontend/widgets/showsnack.dart';
-import 'package:crowdsource/Frontend/widgets/title_card.dart';
-import 'package:crowdsource/Utilities/constants.dart';
-import 'package:crowdsource/Utilities/size_config.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InfluencerProfileScreen extends StatelessWidget {
@@ -38,8 +33,8 @@ class InfluencerProfileScreen extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 isScrollControlled: true,
                 context: context,
-                builder: (_) => EventWarningSheet(
-                  onTap: () {
+                builder: (_) => WarningSheet(
+                  onTapPrimary: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -47,7 +42,8 @@ class InfluencerProfileScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  title: "Log Out",
+                  primaryButtonText: "Log Out",
+                  warningNote: "Are you sure ? you want to log out from the app. once you log out you will be redirected again to welcome page.",
                 ),
               );
             },

@@ -1,11 +1,6 @@
+import 'package:crowdsource/Utilities/import.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/EventPage/EventType/create_new_event.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Participant/EventPage/participant_event_detail_screen.dart';
-import 'package:crowdsource/Frontend/widgets/post_card.dart';
-import 'package:crowdsource/Frontend/widgets/title_card.dart';
-import 'package:crowdsource/Frontend/widgets/widget_action_button.dart';
-import 'package:crowdsource/Utilities/constants.dart';
-import 'package:crowdsource/Utilities/size_config.dart';
-import 'package:flutter/material.dart';
 
 class InfluencerEventScreen extends StatelessWidget {
   const InfluencerEventScreen({Key? key}) : super(key: key);

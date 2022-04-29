@@ -1,11 +1,4 @@
-import 'package:crowdsource/Frontend/widgets/contest_warning_sheet.dart';
-import 'package:crowdsource/Frontend/widgets/title_card.dart';
-import 'package:crowdsource/Frontend/widgets/event_waning_sheet.dart';
-import 'package:crowdsource/Frontend/widgets/widget_action_button.dart';
-import 'package:crowdsource/Frontend/widgets/widget_appbar.dart';
-import 'package:crowdsource/Utilities/constants.dart';
-import 'package:crowdsource/Utilities/size_config.dart';
-import 'package:flutter/material.dart';
+import 'package:crowdsource/Utilities/import.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ParticipantEventDetailScreen extends StatelessWidget {
@@ -132,10 +125,19 @@ class ParticipantEventDetailScreen extends StatelessWidget {
                   isScrollControlled: true,
                   context: context,
                   builder: (_) => isContest
-                      ? const ContestWarningSheet()
-                      : EventWarningSheet(
-                          title: "Register For Event",
-                          onTap: () {},
+                      ? WarningSheet(
+                          warningNote:
+                              "If you OPEN The link it will be marked as you registered this event/contest so, if you don't want to register this event/contest then just slide down the white sheet.",
+                          primaryButtonText: "Register Event",
+                          secondaryButtonText: "Register Contest",
+                          onTapPrimary: () {},
+                          onTapSecondary: () {},
+                        )
+                      : WarningSheet(
+                          warningNote:
+                              "If you OPEN The link it will be marked as you registered this event/contest so, if you don't want to register this event/contest then just slide down the white sheet.",
+                          primaryButtonText: "Register Event",
+                          onTapPrimary: () {},
                         ),
                 );
               },
