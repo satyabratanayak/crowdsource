@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "971390881122",
+    "project_id": "crowdsource-event",
+    "storage_bucket": "crowdsource-event.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971390881122:android:cd2e02f7ce1fccb21d303b",
+        "android_client_info": {
+          "package_name": "com.example.crowdsource"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971390881122-ma51liagv0qv2vh85m3br855ndtskth0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmq-DUPjdE6yXZzqGtZon1ZFA2tHw0eo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971390881122-ma51liagv0qv2vh85m3br855ndtskth0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

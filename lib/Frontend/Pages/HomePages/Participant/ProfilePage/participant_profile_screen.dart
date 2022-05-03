@@ -1,12 +1,15 @@
 import 'package:crowdsource/Utilities/import.dart';
-import 'package:crowdsource/Frontend/Pages/WelcomePage/welcome_page.dart';
+import 'package:crowdsource/backend/Providers/provier_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class ParticipantProfileScreen extends StatelessWidget {
   const ParticipantProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return Padding(
       padding: kSingleHorizontal,
       child: Column(
@@ -35,12 +38,8 @@ class ParticipantProfileScreen extends StatelessWidget {
                 context: context,
                 builder: (_) => WarningSheet(
                   onTapPrimary: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const WelcomePage(),
-                      ),
-                    );
+                    authProvider.googleLogout();
+                    Navigator.pop(context);
                   },
                   primaryButtonText: "Log Out",
                   warningNote: "Are you sure ? you want to log out from the app. once you log out you will be redirected again to welcome page.",
@@ -101,6 +100,7 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageUrl = FirebaseAuth.instance.currentUser?.photoURL;
     return Container(
       height: 100,
       decoration: BoxDecoration(
@@ -117,9 +117,9 @@ class ProfileCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: kPrimaryDark,
                   borderRadius: kHalfCurve,
-                  image: const DecorationImage(
+                  image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/profile.png"),
+                    image: imageUrl == null ? const AssetImage("assets/images/profileImage.png") : NetworkImage(imageUrl) as ImageProvider,
                   ),
                 ),
               ),

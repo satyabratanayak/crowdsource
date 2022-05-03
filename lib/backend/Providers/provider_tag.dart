@@ -6,5 +6,6 @@ class TagProvider extends ChangeNotifier {
   bool get isInfluencer => _tagInfluencer ?? false;
   setTag(bool val) {
     _tagInfluencer = val;
+    notifyListeners();
   }
 }

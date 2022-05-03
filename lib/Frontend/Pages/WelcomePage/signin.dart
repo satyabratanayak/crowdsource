@@ -1,15 +1,17 @@
 import 'package:crowdsource/Utilities/import.dart';
-import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/influencer_homepage.dart';
-import 'package:crowdsource/Frontend/Pages/HomePages/Participant/participant_home.dart';
 import 'package:crowdsource/backend/Providers/provider_tag.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback onTapPageNavigation;
+  final VoidCallback onTapSignInWithGoogle;
+  final VoidCallback ontapTwitter;
   const SignInPage({
     Key? key,
-    required this.onTap,
+    required this.onTapPageNavigation,
+    required this.onTapSignInWithGoogle,
+    required this.ontapTwitter,
   }) : super(key: key);
 
   @override
@@ -72,6 +74,7 @@ class SignInPage extends StatelessWidget {
                           ),
                           SocialButtons(
                             onTap: () {
+                              ontapTwitter;
                               showButtonsnack(context, "We are working on it, please try sign in with google");
                             },
                             svgPath: "assets/icons/icon_twitter.svg",
@@ -108,16 +111,7 @@ class SignInPage extends StatelessWidget {
                       SizedBox(
                         height: getHeight(20),
                       ),
-                      GoogleButton(onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return isInf ? const InfluencerHomePage() : const ParticipantHomePage();
-                            },
-                          ),
-                        );
-                      })
+                      GoogleButton(onTap: onTapSignInWithGoogle)
                     ],
                   ),
                 ),
@@ -135,7 +129,7 @@ class SignInPage extends StatelessWidget {
                 leadingIcon: true,
                 svg: "assets/icons/icon_back.svg",
                 title: "Back",
-                onTap: onTap,
+                onTap: onTapPageNavigation,
               ),
             ),
           ),
