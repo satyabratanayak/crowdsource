@@ -1,7 +1,11 @@
 import 'package:crowdsource/Utilities/import.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/EventPage/EventType/choose_event_type.dart';
+import 'package:crowdsource/backend/Providers/provider_event.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import '../../influencer_homepage.dart';
 
 class CreateNewEventScreen extends StatefulWidget {
   const CreateNewEventScreen({Key? key}) : super(key: key);
@@ -20,6 +24,7 @@ class _CreateNewEventScreenState extends State<CreateNewEventScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final eventProvider = Provider.of<EventProvider>(context);
     return Scaffold(
       backgroundColor: kPrimaryDark,
       appBar: const WidgetAppBar(isDetailPage: true),
@@ -30,16 +35,27 @@ class _CreateNewEventScreenState extends State<CreateNewEventScreen> {
           ChooseEventType(
             onTap: () => pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut),
           ),
-          CreateEventScreen(
-            onTap: () {
-              FocusScopeNode currentFocus = FocusScope.of(context);
-
-              if (!currentFocus.hasPrimaryFocus) {
-                currentFocus.unfocus();
-              }
-              pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
-            },
-          )
+          eventProvider.isEvent
+              ? CreateEventScreen(
+                  isEvent: true,
+                  onTap: () {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
+                    pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                  },
+                )
+              : CreateEventScreen(
+                  isEvent: false,
+                  onTap: () {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
+                    pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                  },
+                )
         ],
       ),
     );
@@ -47,10 +63,12 @@ class _CreateNewEventScreenState extends State<CreateNewEventScreen> {
 }
 
 class CreateEventScreen extends StatefulWidget {
+  final bool isEvent;
   final VoidCallback onTap;
   const CreateEventScreen({
     Key? key,
     required this.onTap,
+    required this.isEvent,
   }) : super(key: key);
 
   @override
@@ -65,7 +83,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   final _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final agendaController = TextEditingController();
-  final linkController = TextEditingController();
+  final eventLinkController = TextEditingController();
+  final contestLinkController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +124,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: getHeight(480),
+                  height: widget.isEvent ? getHeight(480) : getHeight(580),
                   child: Padding(
                     padding: kFullHorizontal,
                     child: Form(
@@ -211,18 +230,53 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               ],
                             ),
                           ),
-                          const TitleHeading(title: "Event Registration Link"),
-                          CustomTextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            labelText: "https://example.com",
-                            textEditingController: linkController,
-                            keyboardType: TextInputType.text,
-                          ),
+                          widget.isEvent
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const TitleHeading(title: "Event Registration Link"),
+                                    CustomTextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter some text';
+                                        }
+                                        return null;
+                                      },
+                                      labelText: "https://example.com",
+                                      textEditingController: eventLinkController,
+                                      keyboardType: TextInputType.text,
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const TitleHeading(title: "Event Registration Link"),
+                                    CustomTextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter some text';
+                                        }
+                                        return null;
+                                      },
+                                      labelText: "https://example.com",
+                                      textEditingController: eventLinkController,
+                                      keyboardType: TextInputType.text,
+                                    ),
+                                    const TitleHeading(title: "Contest Registration Link"),
+                                    CustomTextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter some text';
+                                        }
+                                        return null;
+                                      },
+                                      labelText: "https://example.com",
+                                      textEditingController: contestLinkController,
+                                      keyboardType: TextInputType.text,
+                                    ),
+                                  ],
+                                ),
                         ],
                       ),
                     ),
@@ -258,7 +312,14 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       isScrollControlled: true,
                       context: context,
                       builder: (_) => WarningSheet(
-                        onTapPrimary: () {},
+                        onTapPrimary: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const InfluencerHomePage(),
+                            ),
+                          );
+                        },
                         primaryButtonText: "Register Event",
                         warningNote:
                             "If you OPEN The link it will be marked as you registered this event/contest so, if you don't want to register this event/contest then just slide down the white sheet.",

@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
+import '../../../../../Utilities/import.dart';
 
 class ParticipantHomeScreen extends StatelessWidget {
   const ParticipantHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Text(
         "Participant Home",
+        style: kStylePrimaryBold,
       ),
     );
   }

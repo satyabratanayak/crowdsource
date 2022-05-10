@@ -7,11 +7,15 @@ class SignInPage extends StatelessWidget {
   final VoidCallback onTapPageNavigation;
   final VoidCallback onTapSignInWithGoogle;
   final VoidCallback ontapTwitter;
+  final VoidCallback onTapGitHub;
+  final VoidCallback onTapApple;
   const SignInPage({
     Key? key,
     required this.onTapPageNavigation,
     required this.onTapSignInWithGoogle,
     required this.ontapTwitter,
+    required this.onTapGitHub,
+    required this.onTapApple,
   }) : super(key: key);
 
   @override
@@ -25,95 +29,19 @@ class SignInPage extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: kDoubleVertical,
-                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                      SizedBox(
-                        width: getWidth(250),
-                        child: Text(
-                          isInf ? "Sign in as influencer" : "Sign in as participant",
-                          textAlign: TextAlign.center,
-                          style: kStyleSecondaryBold,
-                        ),
-                      ),
-                      const SizedBox(
-                          // height: getHeight(),
-                          ),
-                      SizedBox(
-                        width: getWidth(280),
-                        child: Text(
-                          "Choose the best social login for joining google crowsource ?",
-                          textAlign: TextAlign.center,
-                          style: kStylePrimaryPara,
-                        ),
-                      ),
-                    ]),
-                  )),
+                flex: 4,
+                child: HeaderElement(
+                  heading: isInf ? "Sign in as influencer" : "Sign in as participant",
+                  description: "Choose the best social login for joining google crowsource ?",
+                ),
+              ),
               Expanded(
                 flex: 9,
-                child: Padding(
-                  padding: kDoublePad,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SocialButtons(
-                            onTap: () {
-                              showButtonsnack(context, "We are working on it, please try sign in with google");
-                            },
-                            svgPath: "assets/icons/icon_apple.svg",
-                          ),
-                          SocialButtons(
-                            onTap: () {
-                              showButtonsnack(context, "We are working on it, please try sign in with google");
-                            },
-                            svgPath: "assets/icons/icon_github.svg",
-                          ),
-                          SocialButtons(
-                            onTap: () {
-                              ontapTwitter;
-                              showButtonsnack(context, "We are working on it, please try sign in with google");
-                            },
-                            svgPath: "assets/icons/icon_twitter.svg",
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: getHeight(20),
-                      ),
-                      Row(
-                        children: [
-                          const Expanded(
-                            flex: 3,
-                            child: Divider(
-                              thickness: 1.5,
-                              color: kPrimaryLight,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Center(
-                              child: Text('or', style: kStylePrimaryPara),
-                            ),
-                          ),
-                          const Expanded(
-                            flex: 3,
-                            child: Divider(
-                              thickness: 1.5,
-                              color: kPrimaryLight,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: getHeight(20),
-                      ),
-                      GoogleButton(onTap: onTapSignInWithGoogle)
-                    ],
-                  ),
+                child: SocialLogins(
+                  ontapTwitter: ontapTwitter,
+                  onTapSignInWithGoogle: onTapSignInWithGoogle,
+                  onTapApple: onTapApple,
+                  onTapGitHub: onTapGitHub,
                 ),
               ),
             ],
@@ -121,20 +49,89 @@ class SignInPage extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: kSingleHorizontal,
-              child: ActionButton(
-                leadingIcon: true,
-                svg: "assets/icons/icon_back.svg",
-                title: "Back",
-                onTap: onTapPageNavigation,
-              ),
-            ),
+          child: NavigationButton(
+            svg: "assets/icons/icon_back.svg",
+            title: "Back",
+            onTapPageNavigation: onTapPageNavigation,
+            leading: true,
           ),
         ),
       ],
+    );
+  }
+}
+
+class SocialLogins extends StatelessWidget {
+  const SocialLogins({
+    Key? key,
+    required this.ontapTwitter,
+    required this.onTapGitHub,
+    required this.onTapApple,
+    required this.onTapSignInWithGoogle,
+  }) : super(key: key);
+
+  final VoidCallback ontapTwitter;
+  final VoidCallback onTapGitHub;
+  final VoidCallback onTapApple;
+  final VoidCallback onTapSignInWithGoogle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: kDoublePad,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SocialButtons(
+                onTap: onTapApple,
+                svgPath: "assets/icons/icon_apple.svg",
+              ),
+              SocialButtons(
+                onTap: onTapGitHub,
+                svgPath: "assets/icons/icon_github.svg",
+              ),
+              SocialButtons(
+                onTap: ontapTwitter,
+                svgPath: "assets/icons/icon_twitter.svg",
+              ),
+            ],
+          ),
+          SizedBox(
+            height: getHeight(20),
+          ),
+          Row(
+            children: [
+              const Expanded(
+                flex: 3,
+                child: Divider(
+                  thickness: 1.5,
+                  color: kPrimaryLight,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: Text('or', style: kStylePrimaryPara),
+                ),
+              ),
+              const Expanded(
+                flex: 3,
+                child: Divider(
+                  thickness: 1.5,
+                  color: kPrimaryLight,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: getHeight(20),
+          ),
+          GoogleButton(onTap: onTapSignInWithGoogle)
+        ],
+      ),
     );
   }
 }

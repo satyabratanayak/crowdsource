@@ -6,5 +6,6 @@ class EventProvider extends ChangeNotifier {
   bool get isEvent => _tagEvent ?? false;
   setTag(bool val) {
     _tagEvent = val;
+    notifyListeners();
   }
 }

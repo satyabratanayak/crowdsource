@@ -24,21 +24,28 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final tagProvider = Provider.of<TagProvider>(context);
     bool isInfluencer = tagProvider.isInfluencer;
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: kPrimaryDark,
       appBar: const WidgetAppBar(),
       body: PageView(
         controller: pageController,
-        // physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          ChooseProfilePage(onTap: () => pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut)),
+          // Choose Profile page
+          ChooseProfilePage(
+            // On tap next button you will be navigate to Next page to log in with social accounts
+            onTapPageNavigation: () => pageController.animateToPage(
+              1,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            ),
+          ),
+          //Sign in page
           SignInPage(
-            ontapTwitter: () {
-              authProvider.googleLogout();
-            },
+            // On tap back button you will be navigate to previous page for reselect you are a/an-> influencer or particiapnt
             onTapPageNavigation: () => pageController.animateToPage(
               0,
               duration: const Duration(milliseconds: 300),
@@ -46,14 +53,15 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             onTapSignInWithGoogle: () async {
               await authProvider.googleLogIn(isInfluencer: isInfluencer);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) {
-              //       return isInfluencer ? const InfluencerHomePage() : const ParticipantHomePage();
-              //     },
-              //   ),
-              // );
+            },
+            ontapTwitter: () {
+              showButtonsnack(context, "We are working on it, please try sign in with google");
+            },
+            onTapApple: () {
+              showButtonsnack(context, "We are working on it, please try sign in with google");
+            },
+            onTapGitHub: () {
+              showButtonsnack(context, "We are working on it, please try sign in with google");
             },
           ),
         ],

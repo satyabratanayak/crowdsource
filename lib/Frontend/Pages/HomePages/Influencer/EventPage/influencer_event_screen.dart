@@ -22,10 +22,11 @@ class InfluencerEventScreen extends StatelessWidget {
                   title: "New",
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CreateNewEventScreen(),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CreateNewEventScreen(),
+                      ),
+                    );
                   },
                   svg: "assets/icons/icon_add.svg",
                   color: kPrimaryText,

@@ -3,8 +3,8 @@ import 'package:crowdsource/backend/Providers/provider_tag.dart';
 import 'package:provider/provider.dart';
 
 class ChooseProfilePage extends StatefulWidget {
-  final VoidCallback onTap;
-  const ChooseProfilePage({Key? key, required this.onTap}) : super(key: key);
+  final VoidCallback onTapPageNavigation;
+  const ChooseProfilePage({Key? key, required this.onTapPageNavigation}) : super(key: key);
 
   @override
   State<ChooseProfilePage> createState() => _ChooseProfilePageState();
@@ -20,32 +20,13 @@ class _ChooseProfilePageState extends State<ChooseProfilePage> {
           flex: 4,
           child: Column(
             children: [
-              Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: kDoubleVertical,
-                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                      SizedBox(
-                        width: getWidth(250),
-                        child: Text(
-                          "I am a/an",
-                          textAlign: TextAlign.center,
-                          style: kStyleSecondaryBold,
-                        ),
-                      ),
-                      const SizedBox(
-                          // height: getHeight(),
-                          ),
-                      SizedBox(
-                        width: getWidth(280),
-                        child: Text(
-                          "Join the app by selecting one of the tags. Are you an influencer or a participant ?",
-                          textAlign: TextAlign.center,
-                          style: kStylePrimaryPara,
-                        ),
-                      ),
-                    ]),
-                  )),
+              const Expanded(
+                flex: 4,
+                child: HeaderElement(
+                  heading: "I am a/an",
+                  description: "Join the app by selecting one of the tags. Are you an influencer or a participant ?",
+                ),
+              ),
               Expanded(
                 flex: 9,
                 child: Padding(
@@ -90,16 +71,11 @@ class _ChooseProfilePageState extends State<ChooseProfilePage> {
         ),
         Expanded(
           flex: 1,
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: kSingleHorizontal,
-              child: ActionButton(
-                svg: "assets/icons/icon_next.svg",
-                title: "Next",
-                onTap: widget.onTap,
-              ),
-            ),
+          child: NavigationButton(
+            svg: "assets/icons/icon_next.svg",
+            title: "Next",
+            onTapPageNavigation: widget.onTapPageNavigation,
+            leading: false,
           ),
         )
       ],

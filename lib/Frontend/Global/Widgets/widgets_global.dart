@@ -75,6 +75,77 @@ class TitleHeading extends StatelessWidget {
   }
 }
 
+// Header Element
+class HeaderElement extends StatelessWidget {
+  final String heading;
+  final String description;
+  const HeaderElement({
+    Key? key,
+    required this.heading,
+    required this.description,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: kDoubleVertical,
+      child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        SizedBox(
+          width: getWidth(250),
+          child: Text(
+            heading,
+            textAlign: TextAlign.center,
+            style: kStyleSecondaryBold,
+          ),
+        ),
+        const SizedBox(
+            // height: getHeight(),
+            ),
+        SizedBox(
+          width: getWidth(280),
+          child: Text(
+            description,
+            textAlign: TextAlign.center,
+            style: kStylePrimaryPara,
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
+// Navigation Button
+class NavigationButton extends StatelessWidget {
+  final bool leading;
+  final String svg;
+  final String title;
+  const NavigationButton({
+    Key? key,
+    required this.onTapPageNavigation,
+    required this.svg,
+    required this.title,
+    required this.leading,
+  }) : super(key: key);
+
+  final VoidCallback onTapPageNavigation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: leading ? Alignment.centerLeft : Alignment.centerRight,
+      child: Padding(
+        padding: kSingleHorizontal,
+        child: ActionButton(
+          leadingIcon: leading,
+          svg: svg,
+          title: title,
+          onTap: onTapPageNavigation,
+        ),
+      ),
+    );
+  }
+}
+
 // Warning sheet widget
 class WarningSheet extends StatelessWidget {
   final String warningNote;
