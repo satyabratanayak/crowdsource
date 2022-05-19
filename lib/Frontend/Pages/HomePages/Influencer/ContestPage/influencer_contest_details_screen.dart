@@ -2,8 +2,9 @@ import 'package:crowdsource/Frontend/Global/Widgets/widget_infocard.dart';
 import 'package:crowdsource/Utilities/import.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ParticipantEventDetailScreen extends StatelessWidget {
+class InfluencerContestDetailScreen extends StatelessWidget {
   final String eventLink;
+  final String contestLink;
   final String agenda;
   final String time;
   final String eventCreator;
@@ -13,7 +14,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
   final bool isOnline;
   final String date;
   final String month;
-  const ParticipantEventDetailScreen({
+  const InfluencerContestDetailScreen({
     Key? key,
     required this.posterImg,
     required this.time,
@@ -24,6 +25,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
     required this.month,
     required this.eventCreator,
     required this.agenda,
+    required this.contestLink,
     required this.eventLink,
   }) : super(key: key);
 
@@ -88,7 +90,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
                       month: month,
                       date: date,
                       time: time,
-                      isEvent: true,
+                      isEvent: false,
                       isOnline: isOnline,
                     ),
                     const TitleHeading(title: "Agenda"),
@@ -120,17 +122,22 @@ class ParticipantEventDetailScreen extends StatelessWidget {
               title: "Register",
               onTap: () {
                 showModalBottomSheet(
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (_) => WarningSheet(
-                          warningNote:
-                              "If you OPEN The link it will be marked as you registered this event/contest and redirected to the link so, if you don't want to register this event/contest then just slide down the white sheet.",
-                          primaryButtonText: "Register Event",
-                          onTapPrimary: () {
-                            launch(eventLink);
-                          },
-                        ));
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) => WarningSheet(
+                    warningNote:
+                        "If you OPEN The link it will be marked as you registered this event/contest and redirected to the link so, if you don't want to register this event/contest then just slide down the white sheet.",
+                    primaryButtonText: "Register Event",
+                    secondaryButtonText: "Register Contest",
+                    onTapPrimary: () {
+                      launch(eventLink);
+                    },
+                    onTapSecondary: () {
+                      launch(contestLink);
+                    },
+                  ),
+                );
               },
             ),
           ),

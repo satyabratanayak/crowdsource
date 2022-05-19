@@ -24,7 +24,6 @@ class ParticipantEventScreen extends StatelessWidget {
                         builder: (context) => const ParticipantEventDetailScreen(
                           date: "23",
                           month: "APR",
-                          isEvent: true,
                           isOnline: true,
                           postTitle: "The New Post",
                           profilePic: "assets/images/profile.png",
@@ -33,6 +32,7 @@ class ParticipantEventScreen extends StatelessWidget {
                           eventCreator: 'Satyabrata Nayak',
                           agenda:
                               "This is a long description of the post of the event, under 1000 Letters in it, for the explanation of the event and why one should join it. and also if possible anything that the participant should know about this event. \n\nThis is a long description of the post of the event, under 1000 Letters in it, for the explanation of the event and why one should join it. and also if possible anything that the participant should know about this event. \n\nThis is a long description of the post of the event, under 1000 Letters in it, for the explanation of the event and why one should join it. and also if possible anything that the participant should know about this event.",
+                          eventLink: '',
                         ),
                       ),
                     );

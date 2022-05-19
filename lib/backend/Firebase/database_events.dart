@@ -11,7 +11,7 @@ class EventDatabase {
   }
 
   static Stream<List<Event>> readEvents() {
-    return FirebaseFirestore.instance.collection('Events').snapshots().transform(Utils.transformer(Event.fromJson));
+    return FirebaseFirestore.instance.collection('Events').orderBy('dateTime').snapshots().transform(Utils.transformer(Event.fromJson));
   }
 
   static Future updateEvent(Event event) async {

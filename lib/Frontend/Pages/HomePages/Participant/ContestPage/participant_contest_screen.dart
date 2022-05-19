@@ -1,5 +1,5 @@
+import 'package:crowdsource/Frontend/Pages/HomePages/Participant/ContestPage/participant_contest_details_screen.dart';
 import 'package:crowdsource/Utilities/import.dart';
-import 'package:crowdsource/Frontend/Pages/HomePages/Participant/EventPage/participant_event_detail_screen.dart';
 
 class ParticipantContestScreen extends StatelessWidget {
   const ParticipantContestScreen({Key? key}) : super(key: key);
@@ -21,10 +21,9 @@ class ParticipantContestScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ParticipantEventDetailScreen(
+                        builder: (context) => const ParticipantContestDetailScreen(
                           date: "23",
                           month: "APR",
-                          isEvent: false,
                           isOnline: true,
                           postTitle: "The New Post",
                           profilePic: "assets/images/profile.png",
@@ -33,6 +32,8 @@ class ParticipantContestScreen extends StatelessWidget {
                           eventCreator: 'Satyabrata Nayak',
                           agenda:
                               "This is a long description of the post of the event, under 1000 Letters in it, for the explanation of the event and why one should join it. and also if possible anything that the participant should know about this event. \n\nThis is a long description of the post of the event, under 1000 Letters in it, for the explanation of the event and why one should join it. and also if possible anything that the participant should know about this event. \n\nThis is a long description of the post of the event, under 1000 Letters in it, for the explanation of the event and why one should join it. and also if possible anything that the participant should know about this event.",
+                          contestLink: '',
+                          eventLink: '',
                         ),
                       ),
                     );

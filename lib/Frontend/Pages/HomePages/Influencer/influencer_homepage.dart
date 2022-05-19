@@ -1,4 +1,4 @@
-import 'package:crowdsource/Frontend/Global/Widgets/BottomBar/bottom_bar.dart';
+import 'package:crowdsource/Frontend/Global/BottomBar/bottom_bar.dart';
 import 'package:crowdsource/Utilities/import.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/ContestPage/influencer_contest_screen.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/EventPage/influencer_event_screen.dart';

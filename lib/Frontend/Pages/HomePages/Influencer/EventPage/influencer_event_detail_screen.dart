@@ -1,8 +1,11 @@
 import 'package:crowdsource/Frontend/Global/Widgets/widget_infocard.dart';
 import 'package:crowdsource/Utilities/import.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:crowdsource/backend/Providers/provider_event.dart';
+import 'package:crowdsource/backend/models/model_events.dart';
+import 'package:provider/provider.dart';
 
-class ParticipantEventDetailScreen extends StatelessWidget {
+class InfluencerEventDetailScreen extends StatefulWidget {
+  final Event event;
   final String eventLink;
   final String agenda;
   final String time;
@@ -13,7 +16,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
   final bool isOnline;
   final String date;
   final String month;
-  const ParticipantEventDetailScreen({
+  const InfluencerEventDetailScreen({
     Key? key,
     required this.posterImg,
     required this.time,
@@ -25,10 +28,29 @@ class ParticipantEventDetailScreen extends StatelessWidget {
     required this.eventCreator,
     required this.agenda,
     required this.eventLink,
+    required this.event,
   }) : super(key: key);
 
   @override
+  State<InfluencerEventDetailScreen> createState() => _InfluencerEventDetailScreenState();
+}
+
+class _InfluencerEventDetailScreenState extends State<InfluencerEventDetailScreen> {
+  @override
   Widget build(BuildContext context) {
+    bool isLoading = false;
+    deleteEvent(EventProvider eventProvider, Event event, Function(void Function()) setState) {
+      setState(() {
+        isLoading = true;
+      });
+      eventProvider.deleteEvent(event);
+      Navigator.pop(context);
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+    final eventProvider = Provider.of<EventProvider>(context);
     return Scaffold(
       backgroundColor: kPrimaryDark,
       appBar: const WidgetAppBar(
@@ -42,7 +64,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
               color: kSecondaryText,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(posterImg),
+                image: NetworkImage(widget.posterImg),
               ),
             ),
           ),
@@ -60,7 +82,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage: NetworkImage(profilePic),
+                          backgroundImage: NetworkImage(widget.profilePic),
                         ),
                         SizedBox(
                           width: getWidth(15),
@@ -70,11 +92,11 @@ class ParticipantEventDetailScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              postTitle,
+                              widget.postTitle,
                               style: kStyleSecondaryBold,
                             ),
                             Text(
-                              "by $eventCreator",
+                              "by ${widget.eventCreator}",
                               style: kStyleSecondaryPara,
                             ),
                           ],
@@ -85,15 +107,15 @@ class ParticipantEventDetailScreen extends StatelessWidget {
                       height: getHeight(30),
                     ),
                     InfoCard(
-                      month: month,
-                      date: date,
-                      time: time,
+                      month: widget.month,
+                      date: widget.date,
+                      time: widget.time,
                       isEvent: true,
-                      isOnline: isOnline,
+                      isOnline: widget.isOnline,
                     ),
                     const TitleHeading(title: "Agenda"),
                     Text(
-                      agenda,
+                      widget.agenda,
                       style: kStyleParagraph,
                     ),
                     SizedBox(
@@ -114,23 +136,31 @@ class ParticipantEventDetailScreen extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerRight,
             child: ActionButton(
+              svg: "assets/icons/icon_trash.svg",
               width: getWidth(140),
               textColor: kPrimaryText,
-              color: kSecondaryText,
-              title: "Register",
+              color: kContestIndicator,
+              title: "Delete",
               onTap: () {
                 showModalBottomSheet(
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (_) => WarningSheet(
-                          warningNote:
-                              "If you OPEN The link it will be marked as you registered this event/contest and redirected to the link so, if you don't want to register this event/contest then just slide down the white sheet.",
-                          primaryButtonText: "Register Event",
-                          onTapPrimary: () {
-                            launch(eventLink);
-                          },
-                        ));
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) => StatefulBuilder(
+                    builder: (BuildContext context, setState) {
+                      return WarningSheet(
+                        warningNote:
+                            "If you Delete this event/contest, you can not recover this it will be permanently deleted, if you don't want to delete this event/contest then just slide down the white sheet.",
+                        primaryButtonText: "Delete Event",
+                        onTapPrimary: () => deleteEvent(
+                          eventProvider,
+                          widget.event,
+                          setState,
+                        ),
+                      );
+                    },
+                  ),
+                ).then((value) => Navigator.pop(context));
               },
             ),
           ),

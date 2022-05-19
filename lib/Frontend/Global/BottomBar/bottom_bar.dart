@@ -1,6 +1,6 @@
-import 'package:crowdsource/Frontend/Global/Widgets/BottomBar/BottomBarIcon/build_icon_background.dart';
-import 'package:crowdsource/Frontend/Global/Widgets/BottomBar/BottomBarIcon/build_icon_button.dart';
-import 'package:crowdsource/Frontend/Global/Widgets/BottomBar/BottomBarSelector/build_moving_selector_animation.dart';
+import 'package:crowdsource/Frontend/Global/BottomBar/BottomBarIcon/build_icon_background.dart';
+import 'package:crowdsource/Frontend/Global/BottomBar/BottomBarIcon/build_icon_button.dart';
+import 'package:crowdsource/Frontend/Global/BottomBar/BottomBarSelector/build_moving_selector_animation.dart';
 import 'package:crowdsource/Utilities/size_config.dart';
 import 'package:flutter/material.dart';
 

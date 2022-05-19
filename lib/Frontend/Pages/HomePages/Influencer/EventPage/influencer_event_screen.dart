@@ -1,4 +1,4 @@
-import 'package:crowdsource/Frontend/Pages/HomePages/Participant/EventPage/participant_event_detail_screen.dart';
+import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/EventPage/influencer_event_detail_screen.dart';
 import 'package:crowdsource/Utilities/import.dart';
 import 'package:crowdsource/Frontend/Pages/HomePages/Influencer/EventPage/EventType/create_new_event.dart';
 import 'package:crowdsource/Utilities/utils.dart';
@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 class InfluencerEventScreen extends StatelessWidget {
   const InfluencerEventScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final eventProvider = Provider.of<EventProvider>(context);
@@ -54,7 +53,6 @@ class InfluencerEventScreen extends StatelessWidget {
                     itemCount: eventList.length,
                     itemBuilder: (context, index) {
                       final event = eventList[index];
-
                       return PostCard(
                         date: Utils.dateFormat(event.dateTime),
                         month: Utils.monthFormat(event.dateTime),
@@ -68,10 +66,9 @@ class InfluencerEventScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ParticipantEventDetailScreen(
+                              builder: (context) => InfluencerEventDetailScreen(
                                 date: Utils.dateFormat(event.dateTime),
                                 month: Utils.monthFormat(event.dateTime),
-                                isEvent: event.isEvent,
                                 isOnline: event.isOnline,
                                 postTitle: event.postTitle,
                                 profilePic: event.influencerProfile,
@@ -79,6 +76,8 @@ class InfluencerEventScreen extends StatelessWidget {
                                 time: Utils.timeFormat(event.dateTime),
                                 eventCreator: event.influencerName,
                                 agenda: event.agenda,
+                                eventLink: event.regLink,
+                                event: event,
                               ),
                             ),
                           );
