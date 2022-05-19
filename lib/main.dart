@@ -4,6 +4,7 @@ import 'package:crowdsource/Frontend/Pages/HomePages/Participant/participant_hom
 import 'package:crowdsource/Utilities/size_config.dart';
 import 'package:crowdsource/backend/Providers/provider_event.dart';
 import 'package:crowdsource/backend/Providers/provier_auth.dart';
+import 'package:crowdsource/backend/Streams/streams_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
               if (snapshot.data!.exists) {
                 final doc = snapshot.data as DocumentSnapshot<Map<String, dynamic>>;
                 bool isInfluencer = doc['isInfluencer'] ?? false;
-                return isInfluencer ? const InfluencerHomePage() : const ParticipantHomePage();
+                return BackgroundCall(isInfluencer: isInfluencer);
               } else {
                 return Center(
                   child: Text("${FirebaseAuth.instance.currentUser!.uid} Data Not Exist"),
@@ -111,5 +112,20 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       },
     );
+  }
+}
+
+class BackgroundCall extends StatefulWidget {
+  final bool isInfluencer;
+  const BackgroundCall({Key? key, required this.isInfluencer}) : super(key: key);
+
+  @override
+  State<BackgroundCall> createState() => _BackgroundCallState();
+}
+
+class _BackgroundCallState extends State<BackgroundCall> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamEvent(child: widget.isInfluencer ? const InfluencerHomePage() : const ParticipantHomePage());
   }
 }

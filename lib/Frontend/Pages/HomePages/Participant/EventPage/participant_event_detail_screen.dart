@@ -1,5 +1,6 @@
 import 'package:crowdsource/Utilities/import.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ParticipantEventDetailScreen extends StatelessWidget {
   final String agenda;
@@ -9,7 +10,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
   final String profilePic;
   final String postTitle;
   final bool isOnline;
-  final bool isContest;
+  final bool isEvent;
   final String date;
   final String month;
   const ParticipantEventDetailScreen(
@@ -19,7 +20,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
       required this.profilePic,
       required this.postTitle,
       required this.isOnline,
-      required this.isContest,
+      required this.isEvent,
       required this.date,
       required this.month,
       required this.eventCreator,
@@ -41,7 +42,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
               color: kSecondaryText,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(posterImg),
+                image: NetworkImage(posterImg),
               ),
             ),
           ),
@@ -59,7 +60,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage: AssetImage(profilePic),
+                          backgroundImage: NetworkImage(profilePic),
                         ),
                         SizedBox(
                           width: getWidth(15),
@@ -87,7 +88,7 @@ class ParticipantEventDetailScreen extends StatelessWidget {
                       month: month,
                       date: date,
                       time: time,
-                      isContest: isContest,
+                      isEvent: isEvent,
                       isOnline: isOnline,
                     ),
                     const TitleHeading(title: "Agenda"),
@@ -117,27 +118,31 @@ class ParticipantEventDetailScreen extends StatelessWidget {
               textColor: kPrimaryText,
               color: kSecondaryText,
               title: "Register",
-              //TODO: Register Link
               onTap: () {
-                //TODO: Dialog Box
                 showModalBottomSheet(
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
                   context: context,
-                  builder: (_) => isContest
+                  builder: (_) => isEvent
                       ? WarningSheet(
                           warningNote:
-                              "If you OPEN The link it will be marked as you registered this event/contest so, if you don't want to register this event/contest then just slide down the white sheet.",
+                              "If you OPEN The link it will be marked as you registered this event/contest and redirected to the link so, if you don't want to register this event/contest then just slide down the white sheet.",
                           primaryButtonText: "Register Event",
-                          secondaryButtonText: "Register Contest",
-                          onTapPrimary: () {},
-                          onTapSecondary: () {},
+                          onTapPrimary: () {
+                            launch("https://flutter.dev");
+                          },
                         )
                       : WarningSheet(
                           warningNote:
-                              "If you OPEN The link it will be marked as you registered this event/contest so, if you don't want to register this event/contest then just slide down the white sheet.",
+                              "If you OPEN The link it will be marked as you registered this event/contest and redirected to the link so, if you don't want to register this event/contest then just slide down the white sheet.",
                           primaryButtonText: "Register Event",
-                          onTapPrimary: () {},
+                          secondaryButtonText: "Register Contest",
+                          onTapPrimary: () {
+                            launch("https://flutter.dev");
+                          },
+                          onTapSecondary: () {
+                            launch("https://dribbble.com");
+                          },
                         ),
                 );
               },
@@ -155,14 +160,14 @@ class InfoCard extends StatelessWidget {
     required this.month,
     required this.date,
     required this.time,
-    required this.isContest,
+    required this.isEvent,
     required this.isOnline,
   }) : super(key: key);
 
   final String month;
   final String date;
   final String time;
-  final bool isContest;
+  final bool isEvent;
   final bool isOnline;
 
   @override
@@ -194,7 +199,7 @@ class InfoCard extends StatelessWidget {
                 Text(
                   date,
                   style: TextStyle(
-                    color: isContest ? kContestIndicator : kEventIndicator,
+                    color: isEvent ? kEventIndicator : kContestIndicator,
                     fontSize: getHeight(12),
                     fontWeight: FontWeight.w900,
                   ),
@@ -229,7 +234,7 @@ class InfoCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SvgPicture.asset(isContest ? "assets/icons/icon_graduation.svg" : "assets/icons/icon_map.svg"),
+                            SvgPicture.asset(isEvent ? "assets/icons/icon_map.svg" : "assets/icons/icon_graduation.svg"),
                             SizedBox(
                               width: getWidth(5),
                             ),
@@ -238,7 +243,7 @@ class InfoCard extends StatelessWidget {
                               style: kStylePrimaryPara,
                             ),
                             Text(
-                              isContest ? "Contest" : "Event",
+                              isEvent ? "Event" : "Contest",
                               style: kStylePrimaryPara,
                             ),
                           ],

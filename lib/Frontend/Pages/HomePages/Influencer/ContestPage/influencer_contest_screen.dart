@@ -24,7 +24,7 @@ class InfluencerContestScreen extends StatelessWidget {
                         builder: (context) => const ParticipantEventDetailScreen(
                           date: "23",
                           month: "APR",
-                          isContest: true,
+                          isEvent: false,
                           isOnline: true,
                           postTitle: "The New Post",
                           profilePic: "assets/images/profile.png",
@@ -39,7 +39,7 @@ class InfluencerContestScreen extends StatelessWidget {
                   },
                   date: "23",
                   month: "APR",
-                  isContest: true,
+                  isEvent: true,
                   isOnline: true,
                   postTitle: "The New Post",
                   profilePic: "assets/images/profile.png",

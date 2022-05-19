@@ -1,49 +1,86 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Event {
-  // final Uint8 bannerImage;
-  final String postTitle;
-  final String agenda;
-  final DateTime dateTime;
-  final String eventType;
-  final String regLink;
+  String id;
+  DateTime dateTime;
+  bool isEvent;
+  bool isOnline;
+  String postTitle;
+  String agenda;
+  String regLink;
+  String posterUrl;
+  String influencerUID;
+  String influencerName;
+  String influencerProfile;
 
   Event({
-    // required this.bannerImage,
+    required this.id,
+    required this.influencerName,
+    required this.influencerProfile,
+    required this.influencerUID,
+    required this.dateTime,
+    required this.isEvent,
+    required this.isOnline,
     required this.postTitle,
     required this.agenda,
-    required this.dateTime,
-    required this.eventType,
     required this.regLink,
+    required this.posterUrl,
   });
 
   Map<String, dynamic> toJson() => {
-        // "bannerImage": bannerImage,
+        "id": id,
+        "influencerUID": influencerUID,
+        "influencerName": influencerName,
+        "influencerProfile": influencerProfile,
+        "dateTime": dateTime,
+        "isEvent": isEvent,
+        "isOnline": isOnline,
         "postTitle": postTitle,
         "agenda": agenda,
-        "dateTime": dateTime,
-        "eventType": eventType,
         "regLink": regLink,
+        "posterUrl": posterUrl,
       };
 
-  static Event fromJson(Map<String, dynamic> json) => Event(
-        // bannerImage: json['bannerImage'],
-        postTitle: json['postTitle'],
-        agenda: json['agenda'],
-        dateTime: json['dateTime'],
-        eventType: json['eventType'],
-        regLink: json['regLink'],
-      );
+  static Event fromJson(Map<String, dynamic> json) {
+    Timestamp? stamp = json['dateTime'];
+    // print("time stamp is : $stamp");
+    DateTime? date = stamp?.toDate();
 
-  static Event fromSnap(DocumentSnapshot snap) {
-    var snapshot = snap.data() as Map<String, dynamic>;
+    // print("datetime is : $date");
+    // print("the object is : ${json['id']} ");
+    // print("the object is : ${json['isEvent']} ");
+    // print("the object is : ${json['isOnline']} ");
+    // print("the object is : ${json['postTitle']} ");
+    // print("the object is : ${json['agenda']} ");
+    // print("the object is : ${json['regLink']} ");
+    // print("the poster is : ${json['posterUrl']} ");
+
     return Event(
-      // bannerImage: snapshot['bannerImage'],
-      regLink: snapshot['regLink'],
-      postTitle: snapshot['postTitle'],
-      agenda: snapshot['agenda'],
-      dateTime: snapshot['dateTime'],
-      eventType: snapshot['eventType'],
+      id: json['id'],
+      influencerName: json['influencerName'],
+      influencerProfile: json['influencerProfile'],
+      influencerUID: json['influencerUID'],
+      dateTime: date ?? DateTime.now(),
+      isEvent: json['isEvent'],
+      isOnline: json['isOnline'],
+      postTitle: json['postTitle'],
+      agenda: json['agenda'],
+      regLink: json['regLink'],
+      posterUrl: json['posterUrl'],
     );
   }
+
+  // static Event fromSnap(DocumentSnapshot snap) {
+  //   var snapshot = snap.data() as Map<String, dynamic>;
+  //   return Event(
+  //     id: snapshot['id'],
+  //     posterUrl: snapshot['posterUrl'],
+  //     postURL: snapshot['postURL'],
+  //     regLink: snapshot['regLink'],
+  //     postTitle: snapshot['postTitle'],
+  //     agenda: snapshot['agenda'],
+  //     dateTime: snapshot['dateTime'],
+  //     eventType: snapshot['eventType'],
+  //     // createdTime: snapshot['createdTime'],
+  //   );
 }

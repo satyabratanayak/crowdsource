@@ -40,7 +40,7 @@ class AuthProvider extends ChangeNotifier {
     await _firestore
         .collection('Users')
         .doc(uid)
-        .set({"uid": uid, "displayName": user.displayName, "email": user.email, "isInfluencer": isInfluencer});
+        .set({"uid": uid, "displayName": user.displayName, "email": user.email, "isInfluencer": isInfluencer, "ProfileURL": user.photoUrl});
     notifyListeners();
     // if (isInfluencer) {
     //   await _firestore.collection('Influencer').doc(uid).set({"uid": user.id, "displayName": user.displayName, "email": user.email});

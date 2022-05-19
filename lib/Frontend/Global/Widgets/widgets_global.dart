@@ -148,6 +148,8 @@ class NavigationButton extends StatelessWidget {
 
 // Warning sheet widget
 class WarningSheet extends StatelessWidget {
+  final bool primaryIsLoading;
+  final bool secondaryIsLoading;
   final String warningNote;
   final VoidCallback onTapPrimary;
   final VoidCallback? onTapSecondary;
@@ -160,6 +162,8 @@ class WarningSheet extends StatelessWidget {
     required this.onTapPrimary,
     this.onTapSecondary,
     required this.warningNote,
+    this.primaryIsLoading = false,
+    this.secondaryIsLoading = false,
   }) : super(key: key);
 
   @override
@@ -192,6 +196,7 @@ class WarningSheet extends StatelessWidget {
                         children: [
                           Expanded(
                             child: ActionButton(
+                              isLoading: primaryIsLoading,
                               hasSvg: false,
                               color: kSecondaryText,
                               textColor: kPrimaryText,
@@ -206,6 +211,7 @@ class WarningSheet extends StatelessWidget {
                         children: [
                           Expanded(
                             child: ActionButton(
+                              isLoading: primaryIsLoading,
                               hasSvg: false,
                               color: kSecondaryText,
                               textColor: kPrimaryText,
@@ -219,6 +225,7 @@ class WarningSheet extends StatelessWidget {
                           ),
                           Expanded(
                             child: ActionButton(
+                              isLoading: secondaryIsLoading,
                               hasSvg: false,
                               color: kSecondaryText,
                               textColor: kPrimaryText,
@@ -241,6 +248,7 @@ class WarningSheet extends StatelessWidget {
 
 // Action Button
 class ActionButton extends StatelessWidget {
+  final bool isLoading;
   final bool hasSvg;
   final String title;
   final VoidCallback onTap;
@@ -262,6 +270,7 @@ class ActionButton extends StatelessWidget {
     this.leadingIcon = false,
     this.textColor,
     this.hasSvg = true,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -276,48 +285,53 @@ class ActionButton extends StatelessWidget {
           color: color ?? kPrimaryLight,
           borderRadius: kHalfCurve,
         ),
-        child: leadingIcon
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  hasSvg ? SvgPicture.asset(svg ?? "assets/icons/icon_next.svg") : Container(),
-                  SizedBox(
-                    width: getWidth(10),
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                color: kPrimaryDark,
+              ))
+            : leadingIcon
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      hasSvg ? SvgPicture.asset(svg ?? "assets/icons/icon_next.svg") : Container(),
+                      SizedBox(
+                        width: getWidth(10),
+                      ),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: textColor ?? kSecondaryText,
+                          fontSize: getHeight(14),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: textColor ?? kSecondaryText,
+                          fontSize: getHeight(14),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      hasSvg
+                          ? SizedBox(
+                              width: getWidth(10),
+                            )
+                          : Container(),
+                      hasSvg
+                          ? SvgPicture.asset(
+                              svg ?? "assets/icons/icon_next.svg",
+                              color: textColor,
+                            )
+                          : Container(),
+                    ],
                   ),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: textColor ?? kSecondaryText,
-                      fontSize: getHeight(14),
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ],
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: textColor ?? kSecondaryText,
-                      fontSize: getHeight(14),
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  hasSvg
-                      ? SizedBox(
-                          width: getWidth(10),
-                        )
-                      : Container(),
-                  hasSvg
-                      ? SvgPicture.asset(
-                          svg ?? "assets/icons/icon_next.svg",
-                          color: textColor,
-                        )
-                      : Container(),
-                ],
-              ),
       ),
     );
   }
@@ -454,10 +468,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
 // Show snack bar
 showButtonsnack(BuildContext context, String text) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text(text),
-    duration: const Duration(milliseconds: 500),
-  ));
+  ScaffoldMessenger.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text(text)));
 }
 
 class ScrollDownBar extends StatelessWidget {
@@ -492,7 +505,7 @@ class PostCard extends StatelessWidget {
   final String profilePic;
   final String postTitle;
   final bool isOnline;
-  final bool isContest;
+  final bool isEvent;
   final String date;
   final String month;
   const PostCard({
@@ -500,7 +513,7 @@ class PostCard extends StatelessWidget {
     required this.date,
     required this.month,
     required this.isOnline,
-    required this.isContest,
+    required this.isEvent,
     required this.postTitle,
     required this.profilePic,
     required this.posterImg,
@@ -538,7 +551,7 @@ class PostCard extends StatelessWidget {
                           borderRadius: kQuatCurve,
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: AssetImage(posterImg),
+                            image: NetworkImage(posterImg),
                           ),
                         ),
                       ),
@@ -586,7 +599,7 @@ class PostCard extends StatelessWidget {
                     Padding(
                       padding: kHalfHorizontal,
                       child: CircleAvatar(
-                        backgroundImage: AssetImage(profilePic),
+                        backgroundImage: NetworkImage(profilePic),
                       ),
                     ),
                     Column(
@@ -600,16 +613,16 @@ class PostCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            SvgPicture.asset(isContest ? "assets/icons/icon_graduation.svg" : "assets/icons/icon_map.svg"),
+                            SvgPicture.asset(isEvent ? "assets/icons/icon_map.svg" : "assets/icons/icon_graduation.svg"),
                             SizedBox(
                               width: getWidth(10),
                             ),
                             Text(
-                              isOnline ? "Online " : "Offline",
+                              isOnline ? "Online " : "Offline ",
                               style: kStyleSecondaryPara,
                             ),
                             Text(
-                              isContest ? "Contest" : "Event",
+                              isEvent ? "Event" : "Contest",
                               style: kStyleSecondaryPara,
                             ),
                           ],
